@@ -94,6 +94,73 @@
   .burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
   .burger span { width: 26px; height: 2px; background: var(--crema); transition: .3s; }
 
+  /* Language switch */
+  .lang-switch {
+    background: transparent;
+    border: 1px solid rgba(244, 234, 213, 0.3);
+    color: var(--crema);
+    padding: 0.45rem 0.85rem;
+    border-radius: 50px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    margin-left: 1.5rem;
+    transition: all .3s ease;
+  }
+  .lang-switch:hover { border-color: var(--dorado); }
+  .lang-opt {
+    color: var(--texto-tenue);
+    transition: color .3s;
+    font-weight: 500;
+  }
+  .lang-opt.active { color: var(--dorado); }
+  .lang-sep { color: rgba(244, 234, 213, 0.3); }
+
+  /* Status indicator (abierto/cerrado) */
+  .status-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.55rem 1.3rem;
+    background: rgba(20, 39, 29, 0.55);
+    border: 1px solid rgba(244, 234, 213, 0.15);
+    border-radius: 50px;
+    margin: 2rem auto 0;
+    font-size: 0.82rem;
+    letter-spacing: 1px;
+    font-weight: 500;
+    color: var(--crema);
+    backdrop-filter: blur(8px);
+    opacity: 0;
+    animation: fadeUp 1.2s 1.6s forwards;
+  }
+  .status-dot {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: #888;
+    position: relative;
+  }
+  .status-dot::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    background: inherit;
+    opacity: 0.5;
+    animation: pulseStatus 2s ease-out infinite;
+  }
+  .status-open .status-dot { background: #4ade80; box-shadow: 0 0 12px rgba(74, 222, 128, 0.6); }
+  .status-closed .status-dot { background: #f87171; box-shadow: 0 0 12px rgba(248, 113, 113, 0.5); }
+  @keyframes pulseStatus {
+    0% { transform: scale(1); opacity: 0.5; }
+    100% { transform: scale(2.2); opacity: 0; }
+  }
+
   /* ============ HERO ============ */
   .hero {
     min-height: 100vh;
@@ -859,116 +926,129 @@
 
   /* MÓVIL — hasta 600px */
   @media (max-width: 600px) {
-    /* Hero */
-    .hero { min-height: 100vh; min-height: 100svh; padding: 0 1rem; }
-    .hero-eyebrow { font-size: 0.7rem; letter-spacing: 5px; margin-bottom: 1.2rem; }
-    .hero h1 { font-size: clamp(4rem, 20vw, 6rem); letter-spacing: 1px; }
-    .hero-sub { font-size: 1.05rem; letter-spacing: 4px; }
-    .hero-tagline { font-size: 1.05rem; margin-top: 1.8rem; padding: 0 0.5rem; line-height: 1.55; }
-    .hero-buttons { margin-top: 2rem; gap: 0.9rem; flex-direction: column; align-items: center; }
-    .btn { padding: 1.05rem 2rem; font-size: 0.82rem; letter-spacing: 2.5px; width: 240px; text-align: center; }
-    .scroll-hint { font-size: 0.65rem; bottom: 1.5rem; letter-spacing: 3px; }
-    .leaf { font-size: 5rem !important; opacity: 0.12; }
-    .leaf-2 { font-size: 6rem !important; }
-    .leaf-3 { font-size: 4rem !important; }
+    /* Nav más compacto */
+    nav { padding: 0.7rem 1rem; }
+    nav.scrolled { padding: 0.55rem 1rem; }
+    .logo { font-size: 1.4rem; }
+    .logo span { display: none; }
+    .lang-switch { padding: 0.35rem 0.7rem; font-size: 0.7rem; margin-left: 0; margin-right: 0.6rem; }
 
-    /* Secciones */
-    section { padding: 4.5rem 1.2rem; }
-    .section-title { margin-bottom: 3rem; }
-    .section-eyebrow { font-size: 0.72rem; letter-spacing: 4px; }
-    .section-title h2 { font-size: 2.5rem; }
+    /* Hero más compacto */
+    .hero { min-height: 100vh; min-height: 100svh; padding: 4rem 1rem 2rem; }
+    .hero-eyebrow { font-size: 0.65rem; letter-spacing: 4px; margin-bottom: 0.8rem; }
+    .hero h1 { font-size: clamp(3.5rem, 18vw, 5.5rem); letter-spacing: 1px; }
+    .hero-sub { font-size: 0.95rem; letter-spacing: 3.5px; }
+    .hero-tagline { font-size: 0.95rem; margin-top: 1.3rem; padding: 0 0.3rem; line-height: 1.55; }
+    .status-indicator { margin-top: 1.3rem; padding: 0.45rem 1rem; font-size: 0.75rem; }
+    .hero-buttons { margin-top: 1.5rem; gap: 0.7rem; flex-direction: column; align-items: center; }
+    .btn { padding: 0.85rem 2rem; font-size: 0.78rem; letter-spacing: 2px; width: 220px; text-align: center; }
+    .leaf { font-size: 4rem !important; opacity: 0.1; }
+    .leaf-2 { font-size: 5rem !important; }
+    .leaf-3 { font-size: 3.5rem !important; }
+
+    /* Secciones más juntas */
+    section { padding: 3.5rem 1.1rem; }
+    .section-title { margin-bottom: 2.5rem; }
+    .section-eyebrow { font-size: 0.68rem; letter-spacing: 3.5px; }
+    .section-title h2 { font-size: 2.1rem; }
 
     /* Descripción */
-    .desc-grid { gap: 2rem; }
-    .desc-image { height: 280px; }
-    .desc-text p { font-size: 1.05rem; line-height: 1.65; }
-    .desc-text p:first-of-type::first-letter { font-size: 3.2rem; }
+    .desc-grid { gap: 1.8rem; }
+    .desc-image { height: 230px; }
+    .desc-text p { font-size: 0.98rem; line-height: 1.6; margin-bottom: 1rem; }
+    .desc-text p:first-of-type::first-letter { font-size: 2.8rem; }
 
     /* Ubicación / horarios */
-    .info-card { padding: 2rem 1.5rem; }
-    .info-card h3 { font-size: 1.5rem; margin-bottom: 1.1rem; }
-    .info-card p, .info-card a { font-size: 1rem; }
+    .ubi-grid { gap: 1.8rem; }
+    .info-card { padding: 1.5rem 1.3rem; }
+    .info-card h3 { font-size: 1.3rem; margin-bottom: 0.9rem; }
+    .info-card p, .info-card a { font-size: 0.92rem; margin-bottom: 0.3rem; }
     .horario-lista li {
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
-      padding: 0.6rem 0;
-      gap: 0.8rem;
+      padding: 0.5rem 0;
+      gap: 0.7rem;
     }
-    .horario-lista .dia { font-size: 0.95rem; }
-    .horario-lista .hora { text-align: right; font-size: 0.82rem; line-height: 1.3; }
+    .horario-lista .dia { font-size: 0.92rem; }
+    .horario-lista .hora { text-align: right; font-size: 0.8rem; line-height: 1.25; }
     .br-mov { display: inline; }
-    .mapa-wrap { margin-top: 2.5rem; }
-    .mapa-wrap iframe { height: 300px; }
+    .mapa-wrap { margin-top: 2rem; }
+    .mapa-wrap iframe { height: 240px; }
 
-    /* Galería — mosaico (no todas en vertical) */
+    /* Galería — mosaico variado (no todas en vertical) */
     .gal-grid {
       grid-template-columns: repeat(2, 1fr);
-      grid-auto-rows: 170px;
-      gap: 0.6rem;
+      grid-auto-rows: 150px;
+      gap: 0.5rem;
     }
     .gal-item.tall { grid-row: span 2; }
     .gal-item::after {
-      font-size: 1rem;
-      padding: 0.8rem 0.9rem;
+      font-size: 0.92rem;
+      padding: 0.7rem 0.8rem;
       opacity: 1;
       transform: translateY(0);
       background: linear-gradient(transparent 40%, rgba(12, 26, 19, .9));
     }
 
-    /* Carta */
-    .toggle button { padding: 0.8rem 1.5rem; font-size: 0.75rem; letter-spacing: 2px; }
-    .toggle-wrap { margin-bottom: 3rem; }
-    .cat-header h3 { font-size: 2rem; }
-    .cat-header p { font-size: 1rem; }
-    .plato { padding: 1rem 0; flex-wrap: wrap; }
-    .plato-nombre { font-size: 1.2rem; }
-    .plato-desc { font-size: 0.9rem; line-height: 1.45; }
-    .plato-precio { font-size: 1.25rem; }
+    /* Carta más compacta */
+    .toggle button { padding: 0.7rem 1.3rem; font-size: 0.72rem; letter-spacing: 1.8px; }
+    .toggle-wrap { margin-bottom: 2.3rem; }
+    .carta-cat { margin-bottom: 3rem; }
+    .cat-header { margin-bottom: 1.8rem; }
+    .cat-header h3 { font-size: 1.8rem; }
+    .cat-header p { font-size: 0.92rem; }
+    .plato { padding: 0.75rem 0; gap: 0.7rem; }
+    .plato-nombre { font-size: 1.05rem; }
+    .plato-desc { font-size: 0.82rem; line-height: 1.4; margin-top: 0.15rem; }
+    .plato-precio { font-size: 1.1rem; }
 
     /* Menú del día */
-    .menu-dia { padding: 2.8rem 1.3rem; }
-    .menu-dia::before, .menu-dia::after { font-size: 2rem; }
-    .menu-dia::before { top: 1rem; left: 1rem; }
-    .menu-dia::after { bottom: 1rem; right: 1rem; }
-    .menu-dia h3 { font-size: 2.5rem; }
-    .menu-dia .subtitle { font-size: 1.1rem; margin-bottom: 1.5rem; }
-    .menu-dia .precio-grande { font-size: 3.6rem; }
-    .menu-dia .precio-grande sup { font-size: 1.3rem; }
+    .menu-dia { padding: 2.3rem 1.2rem; }
+    .menu-dia::before, .menu-dia::after { font-size: 1.6rem; }
+    .menu-dia::before { top: 0.8rem; left: 0.8rem; }
+    .menu-dia::after { bottom: 0.8rem; right: 0.8rem; }
+    .menu-dia h3 { font-size: 2.2rem; }
+    .menu-dia .subtitle { font-size: 0.98rem; margin-bottom: 1.2rem; }
+    .menu-dia .precio-grande { font-size: 3.2rem; }
+    .menu-dia .precio-grande sup { font-size: 1.2rem; }
     .menu-dia-detalle {
       flex-direction: column;
-      gap: 1.3rem;
-      margin-top: 2rem;
+      gap: 1rem;
+      margin-top: 1.7rem;
     }
-    .menu-dia-item { font-size: 1.05rem; }
-    .menu-dia-item strong { font-size: 0.72rem; letter-spacing: 2.5px; }
+    .menu-dia-item { font-size: 0.95rem; }
+    .menu-dia-item strong { font-size: 0.68rem; letter-spacing: 2.3px; }
+    .menu-dia-nota { font-size: 0.8rem; margin-top: 1.5rem; }
 
     /* Contacto */
-    .contacto-grid { gap: 2.5rem; }
-    .contacto-text p { font-size: 1.05rem; margin-bottom: 1.8rem; line-height: 1.6; }
-    .tel-grande { font-size: 2.1rem; padding: 0.7rem 0; }
-    .tel-label { font-size: 0.72rem; letter-spacing: 3px; }
-    .contacto-card { padding: 2rem 1.4rem; }
-    .contacto-card .item { padding: 1.1rem 0; }
-    .contacto-card .item a, .contacto-card .item span { font-size: 1rem; }
+    .contacto-grid { gap: 2rem; }
+    .contacto-text p { font-size: 0.98rem; margin-bottom: 1.5rem; line-height: 1.6; }
+    .tel-grande { font-size: 1.9rem; padding: 0.6rem 0; }
+    .tel-label { font-size: 0.68rem; letter-spacing: 2.5px; }
+    .contacto-card { padding: 1.6rem 1.3rem; }
+    .contacto-card .item { padding: 0.9rem 0; }
+    .contacto-card .item strong { font-size: 0.65rem; }
+    .contacto-card .item a, .contacto-card .item span { font-size: 0.92rem; }
 
     /* Footer */
-    footer { padding: 3rem 1.2rem 1.5rem; }
-    .footer-links { gap: 1.2rem; margin: 1.5rem 0; }
-    .footer-links a { font-size: 0.82rem; letter-spacing: 1.5px; }
-    .copy { font-size: 0.75rem; }
+    footer { padding: 2.3rem 1.1rem 1.3rem; }
+    .footer-links { gap: 1rem; margin: 1.2rem 0; }
+    .footer-links a { font-size: 0.75rem; letter-spacing: 1.3px; }
+    .social-icons a { width: 38px; height: 38px; }
+    .copy { font-size: 0.7rem; padding-top: 1.5rem; }
   }
 
   /* MÓVIL PEQUEÑO — hasta 380px */
   @media (max-width: 380px) {
-    .hero h1 { font-size: 3.5rem; }
-    .hero-sub { font-size: 0.95rem; letter-spacing: 3px; }
-    .section-title h2 { font-size: 2.1rem; }
-    .menu-dia .precio-grande { font-size: 3rem; }
-    .tel-grande { font-size: 1.85rem; }
-    .btn { width: 100%; max-width: 260px; }
-    .gal-grid { grid-auto-rows: 150px; }
-    .horario-lista .hora { font-size: 0.78rem; }
+    .hero h1 { font-size: 3rem; }
+    .hero-sub { font-size: 0.85rem; letter-spacing: 2.5px; }
+    .section-title h2 { font-size: 1.8rem; }
+    .menu-dia .precio-grande { font-size: 2.7rem; }
+    .tel-grande { font-size: 1.65rem; }
+    .btn { width: 100%; max-width: 240px; }
+    .gal-grid { grid-auto-rows: 130px; }
+    .horario-lista .hora { font-size: 0.76rem; }
   }
 
   /* No-hover (móvil/táctil): que las cards no requieran hover */
@@ -983,13 +1063,16 @@
 <nav id="nav">
   <div class="logo">Alhambra <span>Massanassa</span></div>
   <ul class="nav-links" id="navLinks">
-    <li><a href="#hero">Inicio</a></li>
-    <li><a href="#descripcion">Sobre nosotros</a></li>
-    <li><a href="#ubicacion">Horarios</a></li>
-    <li><a href="#galeria">Galería</a></li>
-    <li><a href="#carta">Carta</a></li>
-    <li><a href="#contacto">Reservas</a></li>
+    <li><a href="#hero" data-i18n="nav.home">Inicio</a></li>
+    <li><a href="#ubicacion" data-i18n="nav.hours">Horarios</a></li>
+    <li><a href="#carta" data-i18n="nav.menu">Carta</a></li>
+    <li><a href="#contacto" data-i18n="nav.book">Reservas</a></li>
   </ul>
+  <button class="lang-switch" id="langSwitch" aria-label="Cambiar idioma">
+    <span class="lang-opt active" data-lang="es">ES</span>
+    <span class="lang-sep">/</span>
+    <span class="lang-opt" data-lang="en">EN</span>
+  </button>
   <div class="burger" id="burger"><span></span><span></span><span></span></div>
 </nav>
 
@@ -999,32 +1082,35 @@
   <div class="leaf leaf-2">❦</div>
   <div class="leaf leaf-3">❦</div>
   <div class="hero-content">
-    <p class="hero-eyebrow">Restaurante · Massanassa · Valencia</p>
+    <p class="hero-eyebrow" data-i18n="hero.eyebrow">Restaurante · Massanassa · Valencia</p>
     <h1>Alhambra</h1>
-    <p class="hero-sub">Sabor mediterráneo</p>
-    <p class="hero-tagline">Arroces tradicionales, brasa y producto de mercado en Massanassa. Una mesa hecha de tiempo, fuego lento y buena compañía.</p>
+    <p class="hero-sub" data-i18n="hero.sub">Sabor mediterráneo</p>
+    <p class="hero-tagline" data-i18n="hero.tagline">Arroces tradicionales, brasa y producto de mercado en Massanassa. Una mesa hecha de tiempo, fuego lento y buena compañía.</p>
+    <div class="status-indicator" id="statusIndicator">
+      <span class="status-dot"></span>
+      <span class="status-text" data-i18n-dyn="status">···</span>
+    </div>
     <div class="hero-buttons">
-      <a href="#carta" class="btn btn-primary">Ver la carta</a>
-      <a href="tel:963766176" class="btn btn-ghost">Reservar mesa</a>
+      <a href="#carta" class="btn btn-primary" data-i18n="hero.cta1">Ver la carta</a>
+      <a href="tel:963766176" class="btn btn-ghost" data-i18n="hero.cta2">Reservar mesa</a>
     </div>
   </div>
-  <div class="scroll-hint">Desliza</div>
 </section>
 
 <!-- DESCRIPCIÓN -->
 <section class="descripcion" id="descripcion">
   <div class="container">
     <div class="section-title reveal">
-      <span class="section-eyebrow">Sobre nosotros</span>
-      <h2>Una casa donde el <em>arroz</em> manda</h2>
+      <span class="section-eyebrow" data-i18n="about.eyebrow">Sobre nosotros</span>
+      <h2 data-i18n-html="about.title">Una casa donde el <em>arroz</em> manda</h2>
       <div class="divider"></div>
     </div>
 
     <div class="desc-grid">
       <div class="desc-text reveal reveal-left">
-        <p>En Alhambra cocinamos como se cocinaba antes: con paciencia y con tiempo. Nuestra cocina es honesta, mediterránea y profundamente valenciana, sin renunciar a la frescura de cada temporada.</p>
-        <p>El arroz es el alma de la casa. Lo trabajamos con caldos preparados cada mañana y arroz bomba seleccionado, para que cada grano cuente. Junto a él, una carta de entrantes pensados para compartir, brasa y producto de mercado.</p>
-        <p>Bienvenido a una mesa donde se come despacio. Donde la sobremesa se alarga. Donde, al irte, ya estás pensando cuándo volverás.</p>
+        <p data-i18n="about.p1">En Alhambra cocinamos como se cocinaba antes: con paciencia y con tiempo. Nuestra cocina es honesta, mediterránea y profundamente valenciana, sin renunciar a la frescura de cada temporada.</p>
+        <p data-i18n="about.p2">El arroz es el alma de la casa. Lo trabajamos con caldos preparados cada mañana y arroz bomba seleccionado, para que cada grano cuente. Junto a él, una carta de entrantes pensados para compartir, brasa y producto de mercado.</p>
+        <p data-i18n="about.p3">Bienvenido a una mesa donde se come despacio. Donde la sobremesa se alarga. Donde, al irte, ya estás pensando cuándo volverás.</p>
       </div>
       <div class="desc-image reveal reveal-right" data-parallax></div>
     </div>
@@ -1036,33 +1122,33 @@
 <section class="ubicacion" id="ubicacion">
   <div class="container">
     <div class="section-title reveal">
-      <span class="section-eyebrow">Encuéntranos</span>
-      <h2>Ubicación y <em>horarios</em></h2>
+      <span class="section-eyebrow" data-i18n="hours.eyebrow">Encuéntranos</span>
+      <h2 data-i18n-html="hours.title">Ubicación y <em>horarios</em></h2>
       <div class="divider"></div>
     </div>
 
     <div class="ubi-grid">
       <div class="info-card reveal reveal-left">
-        <h3><span class="icon">◈</span> Dónde estamos</h3>
+        <h3><span class="icon">◈</span> <span data-i18n="hours.where">Dónde estamos</span></h3>
         <p>Carrer de la Partida del Divendres, S/N</p>
         <p>46470 Massanassa, Valencia</p>
         <p style="margin-top:1.5rem;">
           <a href="tel:963766176"><strong style="color:var(--dorado);">963 766 176</strong></a>
         </p>
         <p><a href="mailto:alhambramassanassa@hotmail.com">alhambramassanassa@hotmail.com</a></p>
-        <p style="margin-top:2rem;"><a href="https://www.google.com/maps/search/?api=1&query=Restaurante+Alhambra+Massanassa+Carrer+Partida+del+Divendres" target="_blank" rel="noopener" style="color: var(--dorado); border-bottom: 1px solid var(--dorado); padding-bottom: 4px;">Cómo llegar →</a></p>
+        <p style="margin-top:2rem;"><a href="https://www.google.com/maps/search/?api=1&query=Restaurante+Alhambra+Massanassa+Carrer+Partida+del+Divendres" target="_blank" rel="noopener" style="color: var(--dorado); border-bottom: 1px solid var(--dorado); padding-bottom: 4px;" data-i18n="hours.directions">Cómo llegar →</a></p>
       </div>
 
       <div class="info-card reveal reveal-right">
-        <h3><span class="icon">◐</span> Horario</h3>
+        <h3><span class="icon">◐</span> <span data-i18n="hours.schedule">Horario</span></h3>
         <ul class="horario-lista">
-          <li data-dia="1"><span class="dia">Lunes</span><span class="hora cerrado">Cerrado</span></li>
-          <li data-dia="2"><span class="dia">Martes</span><span class="hora">13:30–17:00</span></li>
-          <li data-dia="3"><span class="dia">Miércoles</span><span class="hora">13:30–17:00</span></li>
-          <li data-dia="4"><span class="dia">Jueves</span><span class="hora">13:30–17:00<br class="br-mov">·21:00–24:00</span></li>
-          <li data-dia="5"><span class="dia">Viernes</span><span class="hora">13:30–17:00<br class="br-mov">·21:00–24:00</span></li>
-          <li data-dia="6"><span class="dia">Sábado</span><span class="hora">13:30–17:00<br class="br-mov">·21:00–24:00</span></li>
-          <li data-dia="0"><span class="dia">Domingo</span><span class="hora">13:30–17:00</span></li>
+          <li data-dia="1"><span class="dia" data-i18n="day.mon">Lunes</span><span class="hora cerrado" data-i18n="day.closed">Cerrado</span></li>
+          <li data-dia="2"><span class="dia" data-i18n="day.tue">Martes</span><span class="hora">13:30–17:00</span></li>
+          <li data-dia="3"><span class="dia" data-i18n="day.wed">Miércoles</span><span class="hora">13:30–17:00</span></li>
+          <li data-dia="4"><span class="dia" data-i18n="day.thu">Jueves</span><span class="hora">13:30–17:00<br class="br-mov">·21:00–24:00</span></li>
+          <li data-dia="5"><span class="dia" data-i18n="day.fri">Viernes</span><span class="hora">13:30–17:00<br class="br-mov">·21:00–24:00</span></li>
+          <li data-dia="6"><span class="dia" data-i18n="day.sat">Sábado</span><span class="hora">13:30–17:00<br class="br-mov">·21:00–24:00</span></li>
+          <li data-dia="0"><span class="dia" data-i18n="day.sun">Domingo</span><span class="hora">13:30–17:00</span></li>
         </ul>
       </div>
     </div>
@@ -1081,19 +1167,19 @@
 <section class="galeria" id="galeria">
   <div class="container">
     <div class="section-title reveal">
-      <span class="section-eyebrow">Galería</span>
-      <h2>El <em>ambiente</em></h2>
+      <span class="section-eyebrow" data-i18n="gal.eyebrow">Galería</span>
+      <h2 data-i18n-html="gal.title">El <em>ambiente</em></h2>
       <div class="divider"></div>
     </div>
 
     <div class="gal-grid stagger reveal">
-      <div class="gal-item gal-1 tall" data-label="Nuestra sala" style="--i:0"></div>
-      <div class="gal-item gal-2" data-label="Arroz de bogavante" style="--i:1"></div>
-      <div class="gal-item gal-3" data-label="Pulpo a la brasa" style="--i:2"></div>
-      <div class="gal-item gal-4" data-label="Calamares" style="--i:3"></div>
-      <div class="gal-item gal-5 tall" data-label="Paletilla de cordero" style="--i:4"></div>
-      <div class="gal-item gal-6" data-label="Entrecot a la brasa" style="--i:5"></div>
-      <div class="gal-item gal-7" data-label="Arroz caldoso de marisco" style="--i:6"></div>
+      <div class="gal-item gal-1 tall" data-i18n-label="gal.label1" data-label="Nuestra sala" style="--i:0"></div>
+      <div class="gal-item gal-2" data-i18n-label="gal.label2" data-label="Arroz de bogavante" style="--i:1"></div>
+      <div class="gal-item gal-3" data-i18n-label="gal.label3" data-label="Pulpo a la brasa" style="--i:2"></div>
+      <div class="gal-item gal-4" data-i18n-label="gal.label4" data-label="Calamares" style="--i:3"></div>
+      <div class="gal-item gal-5 tall" data-i18n-label="gal.label5" data-label="Paletilla de cordero" style="--i:4"></div>
+      <div class="gal-item gal-6" data-i18n-label="gal.label6" data-label="Entrecot a la brasa" style="--i:5"></div>
+      <div class="gal-item gal-7" data-i18n-label="gal.label7" data-label="Arroz caldoso de marisco" style="--i:6"></div>
     </div>
   </div>
 </section>
@@ -1102,16 +1188,16 @@
 <section class="carta" id="carta">
   <div class="container">
     <div class="section-title reveal">
-      <span class="section-eyebrow">Para disfrutar</span>
-      <h2>Nuestra <em>cocina</em></h2>
+      <span class="section-eyebrow" data-i18n="menu.eyebrow">Para disfrutar</span>
+      <h2 data-i18n-html="menu.title">Nuestra <em>cocina</em></h2>
       <div class="divider"></div>
     </div>
 
     <div class="toggle-wrap reveal">
       <div class="toggle" id="cartaToggle">
         <div class="slider"></div>
-        <button class="active" data-view="carta">Carta</button>
-        <button data-view="menu">Menú del día</button>
+        <button class="active" data-view="carta" data-i18n="menu.tabCarta">Carta</button>
+        <button data-view="menu" data-i18n="menu.tabMenu">Menú del día</button>
       </div>
     </div>
 
@@ -1121,60 +1207,60 @@
     <!-- ENTRANTES -->
     <div class="carta-cat reveal">
       <div class="cat-header">
-        <h3>Para <span>empezar</span></h3>
-        <p>Entrantes para compartir, brasa y mar</p>
+        <h3 data-i18n-html="cat.start.title">Para <span>empezar</span></h3>
+        <p data-i18n="cat.start.sub">Entrantes para compartir, brasa y mar</p>
       </div>
       <div class="plato-grid">
-        <div class="plato">
+        <div class="plato" data-dish="bravas">
           <div class="plato-info">
             <div class="plato-nombre">Bravas Alhambra</div>
             <div class="plato-desc">Patata confitada, salsa brava de la casa y alioli suave</div>
           </div>
           <div class="plato-precio">8,50€</div>
         </div>
-        <div class="plato destacado">
+        <div class="plato destacado" data-dish="pulpo">
           <div class="plato-info">
             <div class="plato-nombre">Pulpo a la brasa</div>
             <div class="plato-desc">Sobre parmentier de patata ahumada, aceite de pimentón</div>
           </div>
           <div class="plato-precio">19€</div>
         </div>
-        <div class="plato">
+        <div class="plato" data-dish="calamares">
           <div class="plato-info">
             <div class="plato-nombre">Calamares andaluces</div>
             <div class="plato-desc">Calamar fresco rebozado, limón y mayonesa de cítricos</div>
           </div>
           <div class="plato-precio">14€</div>
         </div>
-        <div class="plato destacado">
+        <div class="plato destacado" data-dish="paletilla">
           <div class="plato-info">
             <div class="plato-nombre">Paletilla de cordero asada</div>
             <div class="plato-desc">Cocinada a baja temperatura ocho horas, jugo de romero</div>
           </div>
           <div class="plato-precio">22€</div>
         </div>
-        <div class="plato">
+        <div class="plato" data-dish="croquetas">
           <div class="plato-info">
             <div class="plato-nombre">Croquetas caseras</div>
             <div class="plato-desc">De jamón ibérico o de boletus (6 ud.)</div>
           </div>
           <div class="plato-precio">9€</div>
         </div>
-        <div class="plato">
+        <div class="plato" data-dish="jamon">
           <div class="plato-info">
             <div class="plato-nombre">Jamón ibérico de bellota</div>
             <div class="plato-desc">Cortado a cuchillo, pan cristal y tomate</div>
           </div>
           <div class="plato-precio">21€</div>
         </div>
-        <div class="plato">
+        <div class="plato" data-dish="ensalada">
           <div class="plato-info">
             <div class="plato-nombre">Ensalada de la huerta</div>
             <div class="plato-desc">Tomate valenciano, burrata, albahaca y aceite de oliva virgen</div>
           </div>
           <div class="plato-precio">12€</div>
         </div>
-        <div class="plato">
+        <div class="plato" data-dish="sepia">
           <div class="plato-info">
             <div class="plato-nombre">Sepia a la plancha</div>
             <div class="plato-desc">Con su tinta, ajo y perejil</div>
@@ -1187,60 +1273,60 @@
     <!-- ARROCES -->
     <div class="carta-cat reveal">
       <div class="cat-header">
-        <h3>Nuestros <span>arroces</span></h3>
-        <p>Mínimo 2 personas · 25 minutos de elaboración</p>
+        <h3 data-i18n-html="cat.rice.title">Nuestros <span>arroces</span></h3>
+        <p data-i18n="cat.rice.sub">Mínimo 2 personas · 25 minutos de elaboración</p>
       </div>
       <div class="plato-grid">
-        <div class="plato destacado">
+        <div class="plato destacado" data-dish="paella">
           <div class="plato-info">
             <div class="plato-nombre">Paella valenciana</div>
             <div class="plato-desc">Pollo, conejo, garrofó, ferraúra y rosmarino. La de siempre</div>
           </div>
           <div class="plato-precio">18€/p</div>
         </div>
-        <div class="plato destacado">
+        <div class="plato destacado" data-dish="abanda">
           <div class="plato-info">
             <div class="plato-nombre">Arroz a banda</div>
             <div class="plato-desc">Fumet de pescado de roca y sepia, alioli</div>
           </div>
           <div class="plato-precio">19€/p</div>
         </div>
-        <div class="plato">
+        <div class="plato" data-dish="negro">
           <div class="plato-info">
             <div class="plato-nombre">Arroz negro de sepia</div>
             <div class="plato-desc">Con su tinta, gambón y alioli de azafrán</div>
           </div>
           <div class="plato-precio">20€/p</div>
         </div>
-        <div class="plato">
+        <div class="plato" data-dish="senyoret">
           <div class="plato-info">
             <div class="plato-nombre">Arroz del senyoret</div>
             <div class="plato-desc">Marisco pelado, comer sin manos</div>
           </div>
           <div class="plato-precio">21€/p</div>
         </div>
-        <div class="plato destacado">
+        <div class="plato destacado" data-dish="bogavante">
           <div class="plato-info">
             <div class="plato-nombre">Arroz de bogavante</div>
             <div class="plato-desc">Caldo intenso de bogavante fresco, medio bogavante por persona</div>
           </div>
           <div class="plato-precio">28€/p</div>
         </div>
-        <div class="plato">
+        <div class="plato" data-dish="carabineros">
           <div class="plato-info">
             <div class="plato-nombre">Arroz meloso de carabineros</div>
             <div class="plato-desc">Caldo concentrado, dos carabineros por ración</div>
           </div>
           <div class="plato-precio">26€/p</div>
         </div>
-        <div class="plato">
+        <div class="plato" data-dish="alhorno">
           <div class="plato-info">
             <div class="plato-nombre">Arroz al horno</div>
             <div class="plato-desc">Con costilla, garbanzos, morcilla y tomate</div>
           </div>
           <div class="plato-precio">17€/p</div>
         </div>
-        <div class="plato">
+        <div class="plato" data-dish="fideua">
           <div class="plato-info">
             <div class="plato-nombre">Fideuá de marisco</div>
             <div class="plato-desc">Fideo cabello de ángel, gamba, mejillón y alioli</div>
@@ -1253,32 +1339,32 @@
     <!-- POSTRES -->
     <div class="carta-cat reveal">
       <div class="cat-header">
-        <h3>Para <span>terminar</span></h3>
-        <p>Postres caseros, de los de toda la vida</p>
+        <h3 data-i18n-html="cat.end.title">Para <span>terminar</span></h3>
+        <p data-i18n="cat.end.sub">Postres caseros, de los de toda la vida</p>
       </div>
       <div class="plato-grid">
-        <div class="plato">
+        <div class="plato" data-dish="tarta">
           <div class="plato-info">
             <div class="plato-nombre">Tarta de queso al horno</div>
             <div class="plato-desc">Receta de la casa, ligera y cremosa</div>
           </div>
           <div class="plato-precio">6,50€</div>
         </div>
-        <div class="plato">
+        <div class="plato" data-dish="coulant">
           <div class="plato-info">
             <div class="plato-nombre">Coulant de chocolate</div>
             <div class="plato-desc">Con helado de vainilla</div>
           </div>
           <div class="plato-precio">6,50€</div>
         </div>
-        <div class="plato">
+        <div class="plato" data-dish="catalana">
           <div class="plato-info">
             <div class="plato-nombre">Crema catalana</div>
             <div class="plato-desc">Quemada al momento</div>
           </div>
           <div class="plato-precio">5,50€</div>
         </div>
-        <div class="plato">
+        <div class="plato" data-dish="sorbete">
           <div class="plato-info">
             <div class="plato-nombre">Sorbete de limón al cava</div>
             <div class="plato-desc">Refrescante y ligero</div>
@@ -1293,26 +1379,26 @@
     <!-- VISTA MENÚ DEL DÍA -->
     <div class="menu-view" id="view-menu">
     <div class="menu-dia reveal reveal-scale">
-      <h3>Menú del día</h3>
-      <p class="subtitle">De martes a viernes, mediodía</p>
+      <h3 data-i18n="menudia.title">Menú del día</h3>
+      <p class="subtitle" data-i18n="menudia.subtitle">De martes a viernes, mediodía</p>
       <div class="precio-grande">15<sup>€</sup></div>
-      <div class="precio-label">Por persona · IVA incluido</div>
+      <div class="precio-label" data-i18n="menudia.priceLabel">Por persona · IVA incluido</div>
 
       <div class="menu-dia-detalle">
         <div class="menu-dia-item">
-          <strong>Incluye</strong>
-          Primer plato a elegir
+          <strong data-i18n="menudia.l1Title">Incluye</strong>
+          <span data-i18n="menudia.l1">Primer plato a elegir</span>
         </div>
         <div class="menu-dia-item">
-          <strong>Más</strong>
-          Segundo plato a elegir
+          <strong data-i18n="menudia.l2Title">Más</strong>
+          <span data-i18n="menudia.l2">Segundo plato a elegir</span>
         </div>
         <div class="menu-dia-item">
-          <strong>Y</strong>
-          Postre o café · Bebida
+          <strong data-i18n="menudia.l3Title">Y</strong>
+          <span data-i18n="menudia.l3">Postre o café · Bebida</span>
         </div>
       </div>
-      <p class="menu-dia-nota">Pregunta cada día por la propuesta del chef. Pan incluido.</p>
+      <p class="menu-dia-nota" data-i18n="menudia.note">Pregunta cada día por la propuesta del chef. Pan incluido.</p>
     </div>
     </div><!-- /menu-view -->
   </div>
@@ -1323,28 +1409,28 @@
   <div class="container">
     <div class="contacto-grid">
       <div class="contacto-text reveal reveal-left">
-        <span class="section-eyebrow">Reservas</span>
-        <h2>Te guardamos <em>la mesa</em></h2>
-        <p>Llámanos directamente y reservamos por teléfono. Para grupos, eventos o celebraciones especiales, cuéntanos lo que necesitas y lo organizamos contigo.</p>
-        <span class="tel-label">Llama ahora</span>
+        <span class="section-eyebrow" data-i18n="book.eyebrow">Reservas</span>
+        <h2 data-i18n-html="book.title">Te guardamos <em>la mesa</em></h2>
+        <p data-i18n="book.text">Llámanos directamente y reservamos por teléfono. Para grupos, eventos o celebraciones especiales, cuéntanos lo que necesitas y lo organizamos contigo.</p>
+        <span class="tel-label" data-i18n="book.callNow">Llama ahora</span>
         <a href="tel:963766176" class="tel-grande">963 766 176</a>
       </div>
 
       <div class="contacto-card reveal reveal-right">
         <div class="item">
-          <strong>Dirección</strong>
+          <strong data-i18n="book.address">Dirección</strong>
           <span>Carrer de la Partida del Divendres, S/N<br>46470 Massanassa, Valencia</span>
         </div>
         <div class="item">
-          <strong>Teléfono</strong>
+          <strong data-i18n="book.phone">Teléfono</strong>
           <a href="tel:963766176">963 766 176</a>
         </div>
         <div class="item">
-          <strong>Email</strong>
+          <strong data-i18n="book.email">Email</strong>
           <a href="mailto:alhambramassanassa@hotmail.com">alhambramassanassa@hotmail.com</a>
         </div>
         <div class="item">
-          <strong>Redes</strong>
+          <strong data-i18n="book.social">Redes</strong>
           <a href="https://www.facebook.com/alhambramassanassa" target="_blank" rel="noopener">facebook.com/alhambramassanassa</a>
         </div>
       </div>
@@ -1356,16 +1442,16 @@
 <footer>
   <div class="logo">Alhambra <span>Massanassa</span></div>
   <ul class="footer-links">
-    <li><a href="#hero">Inicio</a></li>
-    <li><a href="#carta">Carta</a></li>
-    <li><a href="#contacto">Reservas</a></li>
+    <li><a href="#hero" data-i18n="nav.home">Inicio</a></li>
+    <li><a href="#carta" data-i18n="nav.menu">Carta</a></li>
+    <li><a href="#contacto" data-i18n="nav.book">Reservas</a></li>
   </ul>
   <div class="social-icons">
     <a href="https://www.facebook.com/alhambramassanassa" target="_blank" rel="noopener" aria-label="Facebook">f</a>
     <a href="mailto:alhambramassanassa@hotmail.com" aria-label="Email">✉</a>
     <a href="tel:963766176" aria-label="Teléfono">☎</a>
   </div>
-  <p class="copy">© <span id="year"></span> Restaurante Alhambra Massanassa. Todos los derechos reservados.</p>
+  <p class="copy">© <span id="year"></span> <span data-i18n="footer.copy">Restaurante Alhambra Massanassa. Todos los derechos reservados.</span></p>
 </footer>
 
 <script>
@@ -1472,6 +1558,248 @@
 
   // Year
   document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ============ ESTADO ABIERTO / CERRADO ============
+  const schedule = {
+    0: [[810, 1020]],                  // Domingo 13:30-17:00
+    1: [],                              // Lunes cerrado
+    2: [[810, 1020]],
+    3: [[810, 1020]],
+    4: [[810, 1020], [1260, 1440]],
+    5: [[810, 1020], [1260, 1440]],
+    6: [[810, 1020], [1260, 1440]]
+  };
+
+  function fmtMin(m) {
+    const h = Math.floor(m / 60), mm = m % 60;
+    return h.toString().padStart(2,'0') + ':' + mm.toString().padStart(2,'0');
+  }
+
+  function getStatus() {
+    const now = new Date();
+    const day = now.getDay();
+    const min = now.getHours() * 60 + now.getMinutes();
+    const slots = schedule[day] || [];
+    for (const [s, e] of slots) {
+      if (min >= s && min < e) {
+        return { open: true, until: e };
+      }
+    }
+    // Buscar próxima apertura
+    for (const [s, e] of slots) {
+      if (min < s) return { open: false, nextDay: day, nextTime: s, sameDay: true };
+    }
+    for (let i = 1; i <= 7; i++) {
+      const d = (day + i) % 7;
+      if (schedule[d].length) {
+        return { open: false, nextDay: d, nextTime: schedule[d][0][0], sameDay: false };
+      }
+    }
+    return { open: false };
+  }
+
+  // ============ DICCIONARIO i18n ============
+  const i18n = {
+    es: {
+      'nav.home': 'Inicio', 'nav.hours': 'Horarios', 'nav.menu': 'Carta', 'nav.book': 'Reservas',
+      'hero.eyebrow': 'Restaurante · Massanassa · Valencia',
+      'hero.sub': 'Sabor mediterráneo',
+      'hero.tagline': 'Arroces tradicionales, brasa y producto de mercado en Massanassa. Una mesa hecha de tiempo, fuego lento y buena compañía.',
+      'hero.cta1': 'Ver la carta', 'hero.cta2': 'Reservar mesa',
+      'status.open': 'Abierto ahora', 'status.openUntil': 'Abierto hasta las {t}',
+      'status.closed': 'Cerrado', 'status.opensAt': 'Abre hoy a las {t}', 'status.opensOn': 'Abre el {d} a las {t}',
+      'about.eyebrow': 'Sobre nosotros',
+      'about.title': 'Una casa donde el <em>arroz</em> manda',
+      'about.p1': 'En Alhambra cocinamos como se cocinaba antes: con paciencia y con tiempo. Nuestra cocina es honesta, mediterránea y profundamente valenciana, sin renunciar a la frescura de cada temporada.',
+      'about.p2': 'El arroz es el alma de la casa. Lo trabajamos con caldos preparados cada mañana y arroz bomba seleccionado, para que cada grano cuente. Junto a él, una carta de entrantes pensados para compartir, brasa y producto de mercado.',
+      'about.p3': 'Bienvenido a una mesa donde se come despacio. Donde la sobremesa se alarga. Donde, al irte, ya estás pensando cuándo volverás.',
+      'hours.eyebrow': 'Encuéntranos', 'hours.title': 'Ubicación y <em>horarios</em>',
+      'hours.where': 'Dónde estamos', 'hours.schedule': 'Horario', 'hours.directions': 'Cómo llegar →',
+      'day.mon': 'Lunes', 'day.tue': 'Martes', 'day.wed': 'Miércoles', 'day.thu': 'Jueves',
+      'day.fri': 'Viernes', 'day.sat': 'Sábado', 'day.sun': 'Domingo', 'day.closed': 'Cerrado',
+      'gal.eyebrow': 'Galería', 'gal.title': 'El <em>ambiente</em>',
+      'gal.label1': 'Nuestra sala', 'gal.label2': 'Arroz de bogavante', 'gal.label3': 'Pulpo a la brasa',
+      'gal.label4': 'Calamares', 'gal.label5': 'Paletilla de cordero', 'gal.label6': 'Entrecot a la brasa',
+      'gal.label7': 'Arroz caldoso de marisco',
+      'menu.eyebrow': 'Para disfrutar', 'menu.title': 'Nuestra <em>cocina</em>',
+      'menu.tabCarta': 'Carta', 'menu.tabMenu': 'Menú del día',
+      'cat.start.title': 'Para <span>empezar</span>',
+      'cat.start.sub': 'Entrantes para compartir, brasa y mar',
+      'cat.rice.title': 'Nuestros <span>arroces</span>',
+      'cat.rice.sub': 'Mínimo 2 personas · 25 minutos de elaboración',
+      'cat.end.title': 'Para <span>terminar</span>',
+      'cat.end.sub': 'Postres caseros, de los de toda la vida',
+      'menudia.title': 'Menú del día', 'menudia.subtitle': 'De martes a viernes, mediodía',
+      'menudia.priceLabel': 'Por persona · IVA incluido',
+      'menudia.l1Title': 'Incluye', 'menudia.l1': 'Primer plato a elegir',
+      'menudia.l2Title': 'Más', 'menudia.l2': 'Segundo plato a elegir',
+      'menudia.l3Title': 'Y', 'menudia.l3': 'Postre o café · Bebida',
+      'menudia.note': 'Pregunta cada día por la propuesta del chef. Pan incluido.',
+      'book.eyebrow': 'Reservas', 'book.title': 'Te guardamos <em>la mesa</em>',
+      'book.text': 'Llámanos directamente y reservamos por teléfono. Para grupos, eventos o celebraciones especiales, cuéntanos lo que necesitas y lo organizamos contigo.',
+      'book.callNow': 'Llama ahora', 'book.address': 'Dirección', 'book.phone': 'Teléfono',
+      'book.email': 'Email', 'book.social': 'Redes',
+      'footer.copy': 'Restaurante Alhambra Massanassa. Todos los derechos reservados.'
+    },
+    en: {
+      'nav.home': 'Home', 'nav.hours': 'Hours', 'nav.menu': 'Menu', 'nav.book': 'Book',
+      'hero.eyebrow': 'Restaurant · Massanassa · Valencia',
+      'hero.sub': 'Mediterranean flavor',
+      'hero.tagline': 'Traditional rice dishes, grill and market produce in Massanassa. A table built with time, slow fire and good company.',
+      'hero.cta1': 'View menu', 'hero.cta2': 'Book a table',
+      'status.open': 'Open now', 'status.openUntil': 'Open until {t}',
+      'status.closed': 'Closed', 'status.opensAt': 'Opens today at {t}', 'status.opensOn': 'Opens {d} at {t}',
+      'about.eyebrow': 'About us',
+      'about.title': 'A house where <em>rice</em> rules',
+      'about.p1': 'At Alhambra we cook the old way: with patience and time. Our cuisine is honest, Mediterranean and deeply Valencian, without giving up the freshness of each season.',
+      'about.p2': 'Rice is the soul of our house. We work it with broths prepared each morning and selected bomba rice, so every grain counts. Alongside, a menu of starters designed to share, grilled dishes and market produce.',
+      'about.p3': 'Welcome to a table where you eat slowly. Where conversation lingers. Where, when you leave, you are already thinking about when to come back.',
+      'hours.eyebrow': 'Find us', 'hours.title': 'Location & <em>hours</em>',
+      'hours.where': 'Where we are', 'hours.schedule': 'Opening hours', 'hours.directions': 'Get directions →',
+      'day.mon': 'Monday', 'day.tue': 'Tuesday', 'day.wed': 'Wednesday', 'day.thu': 'Thursday',
+      'day.fri': 'Friday', 'day.sat': 'Saturday', 'day.sun': 'Sunday', 'day.closed': 'Closed',
+      'gal.eyebrow': 'Gallery', 'gal.title': 'The <em>atmosphere</em>',
+      'gal.label1': 'Our dining room', 'gal.label2': 'Lobster rice', 'gal.label3': 'Grilled octopus',
+      'gal.label4': 'Squid', 'gal.label5': 'Roast lamb shoulder', 'gal.label6': 'Grilled ribeye',
+      'gal.label7': 'Seafood broth rice',
+      'menu.eyebrow': 'To enjoy', 'menu.title': 'Our <em>kitchen</em>',
+      'menu.tabCarta': 'À la carte', 'menu.tabMenu': 'Daily menu',
+      'cat.start.title': 'To <span>start</span>',
+      'cat.start.sub': 'Starters to share, grill and sea',
+      'cat.rice.title': 'Our <span>rice dishes</span>',
+      'cat.rice.sub': 'Minimum 2 people · 25 minutes preparation',
+      'cat.end.title': 'To <span>finish</span>',
+      'cat.end.sub': 'Homemade desserts, the traditional ones',
+      'menudia.title': 'Daily menu', 'menudia.subtitle': 'Tuesday to Friday, lunch',
+      'menudia.priceLabel': 'Per person · VAT included',
+      'menudia.l1Title': 'Includes', 'menudia.l1': 'Starter of your choice',
+      'menudia.l2Title': 'Plus', 'menudia.l2': 'Main course of your choice',
+      'menudia.l3Title': 'And', 'menudia.l3': 'Dessert or coffee · Drink',
+      'menudia.note': 'Ask each day for the chef\'s special. Bread included.',
+      'book.eyebrow': 'Reservations', 'book.title': "We'll save <em>your table</em>",
+      'book.text': 'Call us directly and we will book by phone. For groups, events or special celebrations, tell us what you need and we will organise it with you.',
+      'book.callNow': 'Call now', 'book.address': 'Address', 'book.phone': 'Phone',
+      'book.email': 'Email', 'book.social': 'Social',
+      'footer.copy': 'Restaurante Alhambra Massanassa. All rights reserved.'
+    }
+  };
+
+  // Diccionario de platos (nombre + descripción)
+  const dishes = {
+    bravas: { es: ['Bravas Alhambra', 'Patata confitada, salsa brava de la casa y alioli suave'],
+              en: ['Bravas Alhambra', 'Confit potato, house brava sauce and mild aioli'] },
+    pulpo: { es: ['Pulpo a la brasa', 'Sobre parmentier de patata ahumada, aceite de pimentón'],
+             en: ['Grilled octopus', 'On smoked potato parmentier, paprika oil'] },
+    calamares: { es: ['Calamares andaluces', 'Calamar fresco rebozado, limón y mayonesa de cítricos'],
+                 en: ['Andalusian squid', 'Fresh battered squid, lemon and citrus mayonnaise'] },
+    paletilla: { es: ['Paletilla de cordero asada', 'Cocinada a baja temperatura ocho horas, jugo de romero'],
+                 en: ['Roast lamb shoulder', 'Slow-cooked eight hours, rosemary jus'] },
+    croquetas: { es: ['Croquetas caseras', 'De jamón ibérico o de boletus (6 ud.)'],
+                 en: ['Homemade croquettes', 'Iberian ham or boletus mushroom (6 pcs.)'] },
+    jamon: { es: ['Jamón ibérico de bellota', 'Cortado a cuchillo, pan cristal y tomate'],
+             en: ['Acorn-fed Iberian ham', 'Hand-carved, crystal bread and tomato'] },
+    ensalada: { es: ['Ensalada de la huerta', 'Tomate valenciano, burrata, albahaca y aceite de oliva virgen'],
+                en: ['Garden salad', 'Valencian tomato, burrata, basil and virgin olive oil'] },
+    sepia: { es: ['Sepia a la plancha', 'Con su tinta, ajo y perejil'],
+             en: ['Grilled cuttlefish', 'With its ink, garlic and parsley'] },
+    paella: { es: ['Paella valenciana', 'Pollo, conejo, garrofó, ferraúra y rosmarino. La de siempre'],
+              en: ['Valencian paella', 'Chicken, rabbit, garrofó beans, flat beans and rosemary. The classic'] },
+    abanda: { es: ['Arroz a banda', 'Fumet de pescado de roca y sepia, alioli'],
+              en: ['Arroz a banda', 'Rock fish and cuttlefish fumet, aioli'] },
+    negro: { es: ['Arroz negro de sepia', 'Con su tinta, gambón y alioli de azafrán'],
+             en: ['Black squid-ink rice', 'With its ink, prawn and saffron aioli'] },
+    senyoret: { es: ['Arroz del senyoret', 'Marisco pelado, comer sin manos'],
+                en: ['Senyoret rice', 'Peeled seafood — eat without using your hands'] },
+    bogavante: { es: ['Arroz de bogavante', 'Caldo intenso de bogavante fresco, medio bogavante por persona'],
+                 en: ['Lobster rice', 'Intense fresh lobster broth, half a lobster per person'] },
+    carabineros: { es: ['Arroz meloso de carabineros', 'Caldo concentrado, dos carabineros por ración'],
+                   en: ['Creamy red prawn rice', 'Concentrated broth, two red prawns per serving'] },
+    alhorno: { es: ['Arroz al horno', 'Con costilla, garbanzos, morcilla y tomate'],
+               en: ['Oven-baked rice', 'With pork ribs, chickpeas, blood sausage and tomato'] },
+    fideua: { es: ['Fideuá de marisco', 'Fideo cabello de ángel, gamba, mejillón y alioli'],
+              en: ['Seafood fideuá', 'Angel-hair noodles, prawn, mussel and aioli'] },
+    tarta: { es: ['Tarta de queso al horno', 'Receta de la casa, ligera y cremosa'],
+             en: ['Baked cheesecake', 'House recipe, light and creamy'] },
+    coulant: { es: ['Coulant de chocolate', 'Con helado de vainilla'],
+               en: ['Chocolate coulant', 'With vanilla ice cream'] },
+    catalana: { es: ['Crema catalana', 'Quemada al momento'],
+                en: ['Crema catalana', 'Caramelised to order'] },
+    sorbete: { es: ['Sorbete de limón al cava', 'Refrescante y ligero'],
+               en: ['Lemon sorbet with cava', 'Refreshing and light'] }
+  };
+
+  function updateStatus(lang) {
+    const indicator = document.getElementById('statusIndicator');
+    if (!indicator) return;
+    const txt = indicator.querySelector('.status-text');
+    const status = getStatus();
+    const t = i18n[lang];
+    indicator.classList.remove('status-open', 'status-closed');
+    if (status.open) {
+      indicator.classList.add('status-open');
+      txt.textContent = t['status.openUntil'].replace('{t}', fmtMin(status.until === 1440 ? 1440 : status.until));
+    } else {
+      indicator.classList.add('status-closed');
+      if (status.nextTime !== undefined) {
+        if (status.sameDay) {
+          txt.textContent = t['status.opensAt'].replace('{t}', fmtMin(status.nextTime));
+        } else {
+          const dayKeys = ['day.sun','day.mon','day.tue','day.wed','day.thu','day.fri','day.sat'];
+          txt.textContent = t['status.opensOn']
+            .replace('{d}', t[dayKeys[status.nextDay]].toLowerCase())
+            .replace('{t}', fmtMin(status.nextTime));
+        }
+      } else {
+        txt.textContent = t['status.closed'];
+      }
+    }
+  }
+
+  function applyLang(lang) {
+    const dict = i18n[lang];
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const v = dict[el.dataset.i18n];
+      if (v) el.textContent = v;
+    });
+    document.querySelectorAll('[data-i18n-html]').forEach(el => {
+      const v = dict[el.dataset.i18nHtml];
+      if (v) el.innerHTML = v;
+    });
+    document.querySelectorAll('[data-i18n-label]').forEach(el => {
+      const v = dict[el.dataset.i18nLabel];
+      if (v) el.setAttribute('data-label', v);
+    });
+    // Traducir platos
+    document.querySelectorAll('[data-dish]').forEach(el => {
+      const d = dishes[el.dataset.dish];
+      if (!d) return;
+      const [nombre, desc] = d[lang];
+      const n = el.querySelector('.plato-nombre');
+      const ds = el.querySelector('.plato-desc');
+      if (n) n.textContent = nombre;
+      if (ds) ds.textContent = desc;
+    });
+    // Indicador estado
+    updateStatus(lang);
+    // Botón switcher
+    document.querySelectorAll('.lang-opt').forEach(o => {
+      o.classList.toggle('active', o.dataset.lang === lang);
+    });
+    try { localStorage.setItem('alhambra-lang', lang); } catch (e) {}
+  }
+
+  // Inicializar
+  const savedLang = (() => { try { return localStorage.getItem('alhambra-lang'); } catch (e) { return null; } })();
+  const initLang = savedLang || (navigator.language && navigator.language.startsWith('en') ? 'en' : 'es');
+  applyLang(initLang);
+  setInterval(() => updateStatus(document.documentElement.lang || 'es'), 60000);
+
+  // Click en el switcher
+  document.getElementById('langSwitch').addEventListener('click', () => {
+    const cur = document.documentElement.lang || 'es';
+    applyLang(cur === 'es' ? 'en' : 'es');
+  });
 </script>
 
 </body>
